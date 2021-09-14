@@ -12,15 +12,12 @@ oneSignalService.sendPushByUser = (toId, title, message) => {
             "headings": { "es": title, "en": title },
             "include_player_ids": toId
         }
-        console.log('body:', body)
-        console.log('key:', key)
         fetch(`${ONESIGNAL_URL}`, {
             method: 'POST',
             body: JSON.stringify(body),
             headers: { Authorization: key, 'Content-Type': 'application/json' }
         }).then(res => res.json())
             .then(json => {
-                console.log('JSON:', json)
                 if (json.error || json.errors) {
                     reject(json)
                 } else {
@@ -28,8 +25,8 @@ oneSignalService.sendPushByUser = (toId, title, message) => {
                 }
             })
             .catch(err => {
-                reject(err)
                 console.log('ERROR ONESIGNAL:', err)
+                reject(err)
             })
     })
 }
